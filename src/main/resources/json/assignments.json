@@ -1,0 +1,7 @@
+{
+  "assignments" : {
+    "dollar" : ["expenses", "income"],
+    "cup" : [],
+    "cal" : []
+  }
+}

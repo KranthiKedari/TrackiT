@@ -1,0 +1,31 @@
+{
+    "mappings" : {
+      "cup": {
+        "default": {
+          "unit": "ml",
+          "quantity": 100
+        },
+        "coffee": {
+          "unit": "ml",
+          "quantity": 500
+        },
+        "rice": {
+          "unit": "gm",
+          "quantity": 100
+        }
+      }
+    },
+    "conversions" :{
+      "ltr" : {
+        "unit" : "ml",
+        "quantity" : 1000
+      }
+    },
+    "aliases" : {
+      "gm" : "gram",
+      "ltr" : "liter",
+      "ml"  : "milliliter",
+      "kg"  :"kilogram"
+    }
+
+}

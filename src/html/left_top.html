@@ -1,0 +1,110 @@
+<table>
+    <tr>
+        <td  >
+            <label for="r-left">Group </label>
+            <select id="trackitGroups"/>
+        </td>
+        <td>
+
+
+            <button id="addGroup" name = "+" onClick="displayAddGroup();">+</button>
+            <button id="removeGroup" name = "-">-</button>
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div id ="addGroupDiv" hidden="true">
+                <table>
+                    <tr>
+                        <td>
+                        <label for="r-left">Name: </label>
+                        </td>
+                        <td>
+                            <input type="input" id="groupName" name ="Name:">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="r-left">Hidden: </label>
+                        </td>
+                        <td>
+                            <input type="checkbox" id="groupHiddenField" value ="hidden">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button name ="Add Group" onClick="addGroup();">Add Group </button>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <label for="r-left"> <br><br> </label>
+        </td>
+    </tr>
+    <tr >
+        <table>
+            <tr>
+                <td colspan ="2">
+                    <label for="r-left">Add Child </label>
+                </td>
+            </tr>
+            <tr  >
+                <td>
+                    <label for="r-left">Name: </label>
+                </td>
+                <td>
+                    <input type="input" id="childName" >
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="r-left">hidden </label>
+                </td>
+                <td>
+                    <input type="checkbox" id="hiddenField" value = "hidden">
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <button name ="Add Child" onClick="addChildToTree();">Add Child </button>
+                </td>
+            </tr>
+        </table>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <label for="r-left"> <br><br> </label>
+        </td>
+    </tr>
+    <tr style="border:1px;">
+        <table>
+            <tr>
+                <td colspan="2">
+                    <label for="r-left">Add data </label>
+                </td>
+            </tr>
+            <tr  >
+                <td>
+                    <label for="r-left">Value: </label>
+                </td>
+                <td>
+                    <input type="input" id="childValue" >
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button name ="Add Child" onClick="addValueToNode();">Add Value </button>
+                </td>
+            </tr>
+        </table>
+    </tr>
+</table>
+</div>

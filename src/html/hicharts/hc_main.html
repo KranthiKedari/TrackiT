@@ -1,0 +1,39 @@
+<script>
+    jQuery(document).ready(function() {
+
+        jQuery('.graph_tabs .graph_tab-links a').on('click', function(e)  {
+            var currentAttrValue = jQuery(this).attr('href');
+
+            // Show/Hide Tabs
+            jQuery('.graph_tabs ' + currentAttrValue).show().siblings().hide();
+
+            // Change/remove current tab to active
+            jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
+
+            e.preventDefault();
+        });
+
+
+
+    });
+</script>
+<div class="graph_tabs">
+    <ul class="graph_tab-links">
+        <li class="active">
+            <a href="#graph_tab1">Time Series</a></li>
+        <li><a href="#graph_tab2">Aggregations</a></li>
+    </ul>
+
+    <div class="graph_tab-content">
+        <div id="graph_tab1" class="graph_tab active">
+            <div id="hichart_container" style="height: 400px;width:70%;float:left"></div>
+            <div id="hichart_picontainer" style="left:600px; height: 400px;width:30%;overflow: hidden"></div>
+        </div>
+
+        <div id="graph_tab2" class="graph_tab">
+            <div id="hichart_container" style="height: 400px;width:70%;float:left"></div>
+            <div id="hichart_picontainer" style="left:600px; height: 400px;width:30%;overflow: hidden"></div>
+        </div>
+
+    </div>
+</div>

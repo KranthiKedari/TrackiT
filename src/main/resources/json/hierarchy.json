@@ -1,0 +1,55 @@
+{
+  "hierarchy": {
+    "expenses": {
+      "id": "expenses",
+      "name": "expenses",
+      "data" : {},
+      "children": {
+        "living": {
+          "id": "living",
+          "name": "living",
+          "data" : {},
+          "children": {
+            "rent": {
+              "id": "rent",
+              "name": "rent",
+              "data" : {},
+              "children": {}
+            },
+            "utilities": {
+              "id": "utilities",
+              "name": "utilities",
+              "data" : {},
+              "children": {
+                "water": {
+                  "id": "water",
+                  "name": "water",
+                  "data" : {},
+                  "children": {}
+                },
+                "electricity": {
+                  "id": "electricity",
+                  "name": "electricity",
+                  "data" : {},
+                  "children": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "income": {
+      "id": "income",
+      "name": "income",
+      "data" : {},
+      "children": {
+        "paycheck": {
+          "id": "paycheck",
+          "data" : {},
+          "name": "paycheck"
+        }
+      }
+    }
+  }
+}

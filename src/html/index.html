@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Spacetree - Tree Animation</title>
+
+    <!-- CSS Files -->
+    <link type="text/css" href="../css/base.css" rel="stylesheet" />
+    <link type="text/css" href="../css/tabs.css" rel="stylesheet" />
+
+    <link type="text/css" href="../css/Spacetree.css" rel="stylesheet" />
+
+    <!--[if IE]><script language="javascript" type="text/javascript" src="../js/excanvas.js"></script><![endif]-->
+
+    <!-- JIT Library File -->
+    <script language="javascript" type="text/javascript" src="../js/jit.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+    <!-- Example File -->
+    <script language="javascript" type="text/javascript" src="../js/hierarchy.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <script language="javascript" type="text/javascript" src="../js/unicaTheme.js"></script>
+    <!-- Additional files for the Highslide popup effect -->
+    <link rel="stylesheet" type="text/css" href="http://www.highcharts.com/media/com_demo/highslide.css" />
+    <script>
+        jQuery(document).ready(function() {
+            $('#hicharts_div').load('./hicharts/hc_main.html');
+
+            $('#left-container').load('left_top.html');
+            $('#right-container').load('right_top.html', null , loadGraph);
+
+            jQuery('.tabs .tab-links a').on('click', function(e)  {
+                var currentAttrValue = jQuery(this).attr('href');
+
+                // Show/Hide Tabs
+                jQuery('.tabs ' + currentAttrValue).show().siblings().hide();
+
+                // Change/remove current tab to active
+                jQuery(this).parent('li').addClass('active').siblings().removeClass('active');
+
+                e.preventDefault();
+            });
+
+
+        });
+    </script>
+</head>
+
+<body>
+
+    <div class="tabs">
+        <ul class="tab-links">
+            <li class="active"><a href="#tab1">Tab #1</a></li>
+            <li><a href="#tab2">Tab #2</a></li>
+            <li><a href="#tab3">Tab #3</a></li>
+            <li><a href="#tab4">Tab #4</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="tab1" class="tab active">
+
+                <div id="container">
+
+                    <div id="left-container"></div>
+
+                    <div id="center-container">
+                        <div id="infovis"></div>
+                    </div>
+
+                    <div id="right-container">
+                    </div>
+
+                    <div id="log"></div>
+
+                </div>
+                <div id ="hicharts_div" style=" height: 400px;width:100%;">
+
+                </div>
+            </div>
+
+            <div id="tab2" class="tab">
+                <p>Tab #2 content goes here!</p>
+                <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+            </div>
+
+            <div id="tab3" class="tab">
+                <p>Tab #3 content goes here!</p>
+                <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum ri.</p>
+            </div>
+
+            <div id="tab4" class="tab">
+                <p>Tab #4 content goes here!</p>
+                <p>Donec pulvinar neque sed semper lacinia. Curabitur lacinia ullamcorper nibh; quis imperdiet velit eleifend ac. Donec blandit mauris eget aliquet lacinia! Donec pulvinar massa interdum risus ornare mollis. In hac habitasse platea dictumst. Ut euismod tempus hendrerit. Morbi ut adipiscing nisi. Etiam rutrum sodales gravida! Aliquam tellus orci, iaculis vel.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

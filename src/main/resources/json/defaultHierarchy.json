@@ -1,0 +1,30 @@
+{
+  "categories" : [
+    {
+     "name" : "expenses",
+      "children" : [{
+      }]
+    },
+    {
+      "name" : "income",
+      "children" : [{
+      }]
+    },
+    {
+      "name" : "food",
+      "unit" : "count",
+      "children" : [{
+      }]
+    },
+    {
+      "name" : "diet",
+      "children" : [{
+      }]
+    },
+    {
+      "name" : "workout",
+      "children" : [{
+      }]
+    }
+  ]
+}
