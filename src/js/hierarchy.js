@@ -19,7 +19,15 @@ st = "";
 hierarchy.selectedNode = "";
 hierarchy.json = "";
 hierarchy.path = [];
+hierarchy.graphdata = {};
 hierarchy.url = 'localhost:2392';
+
+hierarchy.pointOnClick = function(data) {
+
+
+
+};
+
 hierarchy.updateGraphs = function() {
 
     var childName = hierarchy.selectedNode.id;
@@ -30,11 +38,24 @@ hierarchy.updateGraphs = function() {
 
     data.path = path;
     data.name = childName;
+    var fromTime = document.getElementById("fromTime").value;
+    var toTime = document.getElementById("toTime").value;
 
+    if(fromTime != undefined && fromTime.length > 0) {
+       data.fromTime = new Date(fromTime).getTime();
+    } else {
+        data.fromTime = -1;
+    }
+
+    if(toTime != undefined && toTime.length > 0) {
+        data.toTime = new Date(toTime).getTime();
+    } else {
+        data.toTime = -1;
+    }
     $.ajax({
         contentType: 'application/json',
         type: "POST",
-        url: "http://" + hierarchy.url + "//trackit/getData/1",
+        url: "http://" + hierarchy.url + "//trackit/getChart/1",
         data: JSON.stringify(data),
         success: reloadGraph,
         dataType: 'json'
@@ -42,154 +63,45 @@ hierarchy.updateGraphs = function() {
 
     function reloadGraph(data) {
         console.log(data);
-        data.data.graph1.forEach(logMapElements)
-        data.data.graph2.forEach(logMapElements1)
-        function logMapElements(element, index, array) {
-            array[index].type = 'area';
+
+        removeNulls(data.graph1);
+        function removeNulls(obj){
+            var isArray = obj instanceof Array;
+            for (var k in obj){
+                if (obj[k]===null) isArray ? obj.splice(k,1) : delete obj[k];
+                else if (typeof obj[k]=="object") removeNulls(obj[k]);
+            }
+        }
+        hierarchy.graphdata = data;
+
+
+
+        $.each(data, logMapElements);
+
+        function logMapElements( index, value) {
+            data[index].plotOptions.series ={};
+            data[index].plotOptions.series.cursor = "pointer";
+            data[index].plotOptions.series.point ={};
+            data[index].plotOptions.series.point.events ={};
+            data[index].plotOptions.series.point.events['click'] =  function(e) {
+                console.log(this);
+                document.getElementById("updateValues").hidden = false;
+
+                document.getElementById("updateValueName").value = this.series.name;
+                document.getElementById("updateX").value = new Date(parseInt(this.x));
+                document.getElementById("updateY").value = this.y;
+            }
         }
 
-        function logMapElements1(element, index, array) {
-            array[index].type = 'pie';
-        }
+        $('#hichart_container').highcharts(data.graph1);
 
-        $('#hichart_container').highcharts({
-            chart: {
-                zoomType: 'x'
-            },
-            title: {
-                text: data.path
-            },
-            subtitle: {
-                text: document.ontouchstart === undefined ?
-                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
-            },
-            xAxis: {
-                type: 'datetime'
-            },
-            yAxis : [{ // left y axis
-                title: {
-                    text: data.unit
-                },
-                labels: {
-                    align: 'left',
-                    x: '0',
-                    y: 0,
-                    format: '{value:.,0f}'
-                },
-                showFirstLabel: false
-            }, { // right y axis
-                linkedTo: 0,
-                gridLineWidth: 0,
-                opposite: true,
-                title: {
-                    text: data.unit
-                },
-                labels: {
-                    align: 'right',
-                    x: 0,
-                    y: 0,
-                    format: '{value:.,0f}'
-                },
-                showFirstLabel: false
-            }],
-            legend: {
-                align: 'left',
-                verticalAlign: 'bottom',
-                y: 20,
-                floating: true,
-                borderWidth: 0
-            },
+        $('#hichart_picontainer').highcharts(data.graph2);
 
-            tooltip: {
-                shared: true,
-                crosshairs: true
-            },
-          /*  plotOptions: {
-                area: {
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                        ]
-                    },
-                    marker: {
-                        radius: 2
-                    },
-                    lineWidth: 1,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    },
-                    threshold: null
-                }
-            },*/
-            plotOptions: {
-                series: {
-                    cursor: 'pointer',
-                    point: {
-                        events: {
-                            click: function (e) {
-                                console.log(e);
-                                console.log(this.x);
-                                console.log(this.y);
-                                console.log(this);
-                            }
-                        }
-                    },
-                    marker: {
-                        lineWidth: 1
-                    },
-                    lineWidth: 1,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    },
-                    threshold: null
-                }
-            },
-
-            series: data.data.graph1
-        });
-
-
-        $('#hichart_picontainer').highcharts({
-            chart: {
-                type: 'pie',
-                options3d: {
-                    enabled: true,
-                    alpha: 45,
-                    beta: 0
-                }
-            },
-            title: {
-                text: data.path + "[ TOTAL = " + data.fields.total + "]"
-            },
-
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    depth: 35,
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.name}'
-                    }
-                }
-            },
-            series: data.data.graph2
-        });
+        console.log(JSON.stringify(data));
 
     }
 
-}
+};
 var Log = {
     elem: false,
     write: function(text){
@@ -293,15 +205,6 @@ function addChildToTree() {
     });
 
     function reloadGraph(response) {
-        var groups =Object.keys(response);
-        groupElem = document.getElementById("trackitGroups");
-
-        groups.forEach(function(entry) {
-            var optn = document.createElement("OPTION");
-            optn.text = entry;
-            optn.value = entry;
-            groupElem.options.add(optn);
-        });
         hierarchy.json = response[document.getElementById("trackitGroups").value];
         st.loadJSON(hierarchy.json);// or $(this).val()
         //compute node positions and layout
@@ -309,13 +212,80 @@ function addChildToTree() {
         //optional: make a translation of the tree
         st.geom.translate(new $jit.Complex(-200, 0), "current");
         //emulate a click on the root node.
-        st.onClick(st.root);
+        st.onClick(hierarchy.selectedNode.id);
         //st.refresh();
     }
 }
 
+function generateAggChart() {
+    var aggData = {};
+    var elementData = {};
+    var aggType = document.getElementById("main_aggregations_aggregation_type").value;
+    var graphType = document.getElementById("main_aggregations_graph_type").value;
+    var interval = document.getElementById("main_aggregations_interval_count").value;
+    var intervalType = document.getElementById("main_aggregations_interval_type").value;
+    var fromTime = document.getElementById("main_aggregations_fromTime").value;
+    var toTime = document.getElementById("main_aggregations_toTime").value;
+
+    if(fromTime != undefined && fromTime.length > 0) {
+        aggData.fromTime = new Date(childTime).getTime();
+    } else {
+        aggData.fromTime = -1;
+    }
+
+    if(toTime != undefined && toTime.length > 0) {
+        aggData.toTime = new Date(toTime).getTime();
+    } else {
+        aggData.toTime = -1;
+    }
+
+    aggData.aggreationType = aggType;
+    aggData.interval = interval;
+    aggData.intervalType = intervalType;
+    aggData.groupBy = "";
+    aggData.flags = {};
+    aggData.flags.includeChildren = true;
+
+
+    elementData.name = hierarchy.selectedNode.id;
+
+    elementData.path = hierarchy.path.join("|");
+    elementData.graphType = graphType;
+    elementData.values = {};
+    elementData.values.count = "int";
+
+    var data = {};
+    data.aggregation = aggData;
+    data.element = elementData;
+
+    $.ajax({
+        contentType: 'application/json',
+        type: "POST",
+        url: "http://" + hierarchy.url + "//trackit/getAggChart/1",
+        data:  JSON.stringify(data),
+        success: reloadGraph,
+        dataType: 'json'
+    });
+
+    function reloadGraph(response) {
+
+        removeNulls(response);
+        console.log(response);
+
+        function removeNulls(obj){
+            var isArray = obj instanceof Array;
+            for (var k in obj){
+                if (obj[k]===null) isArray ? obj.splice(k,1) : delete obj[k];
+                else if (typeof obj[k]=="object") removeNulls(obj[k]);
+            }
+        }
+        $('#main_aggregations_graph').highcharts(response);
+    }
+
+}
 function addValueToNode() {
     var childValue = document.getElementById("childValue").value;
+    var childNotes = document.getElementById("childNotes").value;
     var childName = hierarchy.selectedNode.id;
 
     if(childValue == undefined || childValue.length == 0) {
@@ -329,6 +299,16 @@ function addValueToNode() {
     data.path = path;
     data.name = childName;
     data.value = childValue;
+    data.notes = childNotes;
+
+    var childTime = document.getElementById("childTime").value;
+
+    if(childTime != undefined && childTime.length > 0) {
+        data.time = new Date(childTime).getTime();
+    } else {
+        data.time = -1;
+    }
+
     $.ajax({
         contentType: 'application/json',
         type: "POST",
@@ -339,7 +319,10 @@ function addValueToNode() {
     });
 
     function reloadGraph(response) {
-
+        alert("Successfully added data")
+        document.getElementById("childValue").value = "";
+        document.getElementById("childNotes").value = "";
+        st.onClick(hierarchy.selectedNode.id);
         console.log(response);
     }
 }

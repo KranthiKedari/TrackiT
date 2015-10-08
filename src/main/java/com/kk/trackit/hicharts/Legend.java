@@ -13,9 +13,9 @@ public class Legend {
     private String verticalAlign;
 
     @JsonProperty("x")
-    private int x;
+    private Object x;
     @JsonProperty("y")
-    private int y;
+    private Object y;
     @JsonProperty("floating")
     private boolean floating;
     @JsonProperty("borderWidth")
@@ -47,19 +47,19 @@ public class Legend {
         this.verticalAlign = verticalAlign;
     }
 
-    public int getX() {
+    public Object getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(Object x) {
         this.x = x;
     }
 
-    public int getY() {
+    public Object getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(Object y) {
         this.y = y;
     }
 

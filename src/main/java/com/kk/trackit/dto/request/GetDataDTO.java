@@ -15,6 +15,12 @@ public class GetDataDTO {
     @JsonProperty("name")
     private String name;
 
+    @JsonProperty("fromTime")
+    private long fromTime;
+
+    @JsonProperty("toTime")
+    private long toTime;
+
     public String getPath() {
         return path;
     }
@@ -29,5 +35,21 @@ public class GetDataDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public long getFromTime() {
+        return fromTime;
+    }
+
+    public void setFromTime(long fromTime) {
+        this.fromTime = fromTime;
+    }
+
+    public long getToTime() {
+        return toTime;
+    }
+
+    public void setToTime(long toTime) {
+        this.toTime = toTime;
     }
 }

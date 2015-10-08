@@ -26,7 +26,7 @@
     <link rel="stylesheet" type="text/css" href="http://www.highcharts.com/media/com_demo/highslide.css" />
     <script>
         jQuery(document).ready(function() {
-            $('#hicharts_div').load('./hicharts/hc_main.html');
+            $('#hicharts_div').load('./hicharts/hc_main.html', null, loadAggregationsTab);
 
             $('#left-container').load('left_top.html');
             $('#right-container').load('right_top.html', null , loadGraph);
@@ -42,6 +42,11 @@
 
                 e.preventDefault();
             });
+
+            function loadAggregationsTab() {
+                $('#graph_tab2').load('aggregation_main.html');
+
+            }
 
 
         });

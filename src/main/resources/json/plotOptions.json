@@ -1,0 +1,29 @@
+{
+  "plotOptions": {
+    "series": {
+      "cursor": "pointer",
+      "point": {
+        "events": {}
+      },
+      "marker": {
+        "lineWidth": 1
+      },
+      "lineWidth": 1,
+      "states": {
+        "hover": {
+          "lineWidth": 1
+        }
+      },
+      "threshold": null
+    },
+    "pie" : {
+      "allowPointSelect": true,
+      "cursor": "pointer",
+      "depth": 35,
+      "dataLabels": {
+        "enabled": true,
+        "format": "{point.name}"
+      }
+    }
+  }
+}

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Axis {
     @JsonProperty("title")
-    private Title title;
+    private AxisTitle title;
 
     @JsonProperty("type")
     private String type;
@@ -15,13 +15,36 @@ public class Axis {
     @JsonProperty("labels")
     private AxisLabel labels;
 
-    @JsonProperty("showFirstLabel")
-    private boolean showFirstLabel;
 
     public Axis() {
-        this.title = new Title();
-        this.type = "";
-        this.showFirstLabel = true;
+        this.title = new AxisTitle();
+        this.type = null;
+        this.labels = new AxisLabel();
     }
+
+    public AxisTitle getTitle() {
+        return title;
+    }
+
+    public void setTitle(AxisTitle title) {
+        this.title = title;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public AxisLabel getLabels() {
+        return labels;
+    }
+
+    public void setLabels(AxisLabel labels) {
+        this.labels = labels;
+    }
+
 
 }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Read File (via User Input selection)</title>
+    <script type="text/javascript">
+        window.onload = function() {
+            var fileInput = document.getElementById('fileInput');
+            var fileDisplayArea = document.getElementById('fileDisplayArea');
+
+            fileInput.addEventListener('change', function(e) {
+                var file = fileInput.files[0];
+                var textType = /text.*/;
+
+                if (file.type.match(textType)) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        //fileDisplayArea.innerText = reader.result;
+                        makeTable(reader.result);
+                    }
+
+                    reader.readAsText(file);
+                } else {
+                    fileDisplayArea.innerText = "File not supported!";
+                }
+            });
+        }
+
+        function makeTable ( txt /*your rav csv string*/ ) {
+            var rows = txt.split('\n'),
+                    table = document.createElement("TABLE");
+                    table.setAttribute("id", "myTable");
+
+                    tr = null;
+                    td = null;
+                    tds = null;
+
+            for ( var i = 0; i<rows.length; i++ ) {
+                var tr = document.createElement("TR");
+
+                var tds = rows[i].split(',');
+                for ( var j = 0; j < tds.length; j++ ) {
+                    console.log(tds[j]);
+
+                    var td = document.createElement("TD");
+
+                    td.appendChild(document.createTextNode(tds[j]));
+                    tr.appendChild(td);
+                }
+                table.appendChild(tr);
+            }
+
+            document.getElementById("dataTable").appendChild(table);
+
+        }
+
+    </script>
+</head>
+<body>
+
+
+<div id="page-wrapper">
+
+    <h1>Text File Reader</h1>
+    <div>
+        Select a text file:
+        <input type="file" id="fileInput">
+    </div>
+    <div id = "dataTable"></table>
+		<pre id="fileDisplayArea"></pre>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<div id="main_aggregations">
+    <div id="aggregation_filters">
+        <table>
+            <tr>
+                <td colspan="2">
+                    <h2> Aggregation Filters</h2>
+                </td>
+            </tr>
+            <tr>
+
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                Aggregation Type:
+                            </td>
+                            <td colspan="2">
+                                <select id="main_aggregations_aggregation_type">
+                                    <option value="none"> None</option>
+                                    <option value="average"> Average</option>
+                                    <option value="sum"> Sum</option>
+
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                GraphType:
+                            </td>
+                            <td colspan="2">
+                                <select id="main_aggregations_graph_type">
+                                    <option value="bar"> Bar</option>
+                                    <option value="line"> Line</option>
+                                    <option value="area"> Area</option>
+
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Interval Count:
+                            </td>
+                            <td colspan="2">
+                                <input type="text" id="main_aggregations_interval_count"/>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td>
+                                Aggregation Interval:
+                            </td>
+                            <td colspan="2">
+                                <select id="main_aggregations_interval_type">
+                                    <option value="day"> Day(s)</option>
+                                    <option value="month"> Month(s)</option>
+                                    <option value="year"> Year(s)</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                FROM:
+                            </td>
+                            <td colspan="2">
+                                <input type="date" id="main_aggregations_fromTime">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                TO:
+                            </td>
+                            <td colspan="2">
+                                <input type="date" id="main_aggregations_toTime">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button id="main_aggregations_submit" onClick="generateAggChart();"> Generate</button>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div id="main_aggregations_graph">
+
+    </div>
+</div>

@@ -9,23 +9,18 @@ public class AxisLabel {
     @JsonProperty("align")
     private String align;
 
-    @JsonProperty("enabled")
-    private boolean enabled;
-
     @JsonProperty("x")
-    private String x;
+    private Object x;
 
     @JsonProperty("y")
-    private String y;
+    private Object y;
 
     @JsonProperty("format")
     private String format;
 
     public AxisLabel() {
-        this.align = "left";
-        this.x = "0";
-        this.y ="0";
-        this.format = "{value:.,0f}";
+        this.align = "right";
+        this.format = "{value}";
     }
 
     public String getAlign() {
@@ -36,27 +31,19 @@ public class AxisLabel {
         this.align = align;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public String getX() {
+    public Object getX() {
         return x;
     }
 
-    public void setX(String x) {
+    public void setX(Object x) {
         this.x = x;
     }
 
-    public String getY() {
+    public Object getY() {
         return y;
     }
 
-    public void setY(String y) {
+    public void setY(Object y) {
         this.y = y;
     }
 

@@ -1,6 +1,7 @@
 package com.kk.trackit.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.kk.trackit.dto.aggregations.SeriesDTO;
 
 import java.util.List;
 import java.util.Map;

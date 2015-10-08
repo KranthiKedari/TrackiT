@@ -16,6 +16,30 @@ public class AddValueDTO {
     @JsonProperty("value")
     private String value;
 
+    @JsonProperty("time")
+    private long time;
+
+
+    @JsonProperty("notes")
+    private String notes;
+
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
     public String getName() {
         return name;
     }

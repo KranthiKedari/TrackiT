@@ -9,11 +9,13 @@ import com.kk.trackit.dto.Settings;
 import com.kk.trackit.dto.UserSettings;
 import com.kk.trackit.dto.hierarchy.Assignments;
 import com.kk.trackit.dto.hierarchy.Hierarchy;
+import com.kk.trackit.dto.request.AddValueDTO;
 import com.kk.trackit.dto.units.UnitConfig;
 import com.kk.trackit.util.JitUtil;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -112,20 +114,55 @@ public class HierarchyDAO {
         return userSettings;
     }
 
-    public int addValue(String path, String name, String value, String userId) {
-        String query = "insert into trackit_user_data(`user_id`, `name`, `value`,`numeric_value`, `path`, `last_updated`) values(?,?,?,?,?,?)";
+    public int addValue(String userId, AddValueDTO addValueDTO) {
+
+        String path = addValueDTO.getPath();
+        String name = addValueDTO.getName();
+        String value = addValueDTO.getValue();
+
+        String notes = addValueDTO.getNotes();
+                String idQuery = " select  max(id) as id from trackit_user_data";
+
+        SqlRowSet  idRowSet = jdbcTemplate.queryForRowSet(idQuery);
+
+        idRowSet.beforeFirst();
+        int id = -1;
+        while(idRowSet.next()) {
+            id = idRowSet.getInt("id");
+        }
+        if(id == -1) {
+            return 0;
+        }
+
+        id = id+1;
+        String query = "insert into trackit_user_data(`id`,`user_id`, `name`, `path`, `last_updated`, `notes`) values(?,?,?,?,?, ?)";
 
         List<Object> args = new ArrayList<Object>();
+        args.add(id);
         args.add(userId);
         args.add(name);
-        args.add(value);
-        args.add(Double.parseDouble(value));
         args.add(path);
 
-        java.sql.Timestamp sq = new java.sql.Timestamp(new Date().getTime());
+        if(addValueDTO.getTime() == -1) {
+            java.sql.Timestamp sq = new java.sql.Timestamp(new Date().getTime());
 
-        args.add(sq);
-        return jdbcTemplate.update(query, args.toArray());
+            args.add(sq);
+        } else {
+            args.add(new java.sql.Timestamp(addValueDTO.getTime()));
+        }
+        args.add(notes);
+        int response =  jdbcTemplate.update(query, args.toArray());
+
+        if(response == 1) {
+            query = "insert into trackit_user_values(`user_data_id`, `name`, `numeric_value`) values(?,?,?)";
+            args = new ArrayList<Object>();
+            args.add(id);
+            args.add("count");
+            args.add(Double.parseDouble(value));
+            return jdbcTemplate.update(query, args.toArray());
+        }
+
+        return 0;
     }
 
 

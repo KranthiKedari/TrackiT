@@ -1,6 +1,7 @@
 package com.kk.trackit.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.kk.trackit.dto.aggregations.SeriesDTO;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +9,7 @@ import java.util.Map;
 /**
  * Created by kkedari on 8/5/15.
  */
-public class HCSeriesDTO extends SeriesDTO{
+public class HCSeriesDTO extends SeriesDTO {
 
     @JsonProperty("type")
     private String type;

@@ -1,0 +1,25 @@
+{
+  "data" : {
+    "aggGraph_page1" : {
+      "name" : "graph1",
+      "desc" : "First graph using the dynamic graph generator",
+      "title" : "Title of the graph",
+      "subtitle" : "Drag/Pinch to Zoom",
+      "type" : "area",
+      "timeseries" : true,
+      "xAxis" : {
+
+      },
+      "yAxis" : [
+        {
+
+        }
+      ],
+      "legend" : {
+
+      },
+      "plotOptions" : "series"
+
+    }
+  }
+}

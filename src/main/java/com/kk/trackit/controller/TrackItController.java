@@ -3,12 +3,17 @@ package com.kk.trackit.controller;
 import com.kk.trackit.dao.HierarchyDAO;
 import com.kk.trackit.dao.UserDataDAO;
 import com.kk.trackit.db.mongo.TrackItDAO;
+import com.kk.trackit.dto.aggregations.AggregationDTO;
+import com.kk.trackit.dto.aggregations.GraphElement;
 import com.kk.trackit.dto.request.AddNodeDTO;
 import com.kk.trackit.dto.Jit.JitElement;
 import com.kk.trackit.dto.UserSettings;
 import com.kk.trackit.dto.request.AddValueDTO;
+import com.kk.trackit.dto.request.AggregationRequestDTO;
 import com.kk.trackit.dto.request.GetDataDTO;
 import com.kk.trackit.dto.response.GetDataResponseDTO;
+import com.kk.trackit.hicharts.ChartGenerator;
+import com.kk.trackit.hicharts.HighChart;
 import com.kk.trackit.sms.MessageScanner;
 import com.kk.trackit.util.JitUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +21,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,13 +66,25 @@ public class TrackItController {
 
     @RequestMapping(value = "/trackit/addValue/{id}", method = RequestMethod.POST)
     public int addValue(@PathVariable("id") String userId, @RequestBody(required = true)AddValueDTO addValueDTO) {
-        return new HierarchyDAO(trackItDAO, jdbcTemplate).addValue(addValueDTO.getPath(), addValueDTO.getName(), addValueDTO.getValue(), userId);
+        return new HierarchyDAO(trackItDAO, jdbcTemplate).addValue(userId, addValueDTO);
 
     }
 
     @RequestMapping(value = "/trackit/getData/{id}", method = RequestMethod.POST)
     public GetDataResponseDTO getData(@PathVariable("id") String userId, @RequestBody(required = true)GetDataDTO getDataDTO) {
         return  new UserDataDAO(jdbcTemplate).getData(getDataDTO.getPath(), getDataDTO.getName(), userId);
+    }
+
+    @RequestMapping(value = "/trackit/getChart/{id}", method = RequestMethod.POST)
+    public Map<String,HighChart> getUserCharts(@PathVariable("id") String userId, @RequestBody(required = true)GetDataDTO getDataDTO) {
+        return  new UserDataDAO(jdbcTemplate).getType1Charts(userId, getDataDTO);
+    }
+
+    @RequestMapping(value = "/trackit/getAggChart/{id}", method = RequestMethod.POST)
+    public HighChart getAggChart(@PathVariable("id") String userId, @RequestBody(required = true)AggregationRequestDTO aggregationRequestDTO) {
+        AggregationDTO aggregationDTO = aggregationRequestDTO.getAggregationDTO();
+        GraphElement graphElement = aggregationRequestDTO.getGraphElement();
+        return  new UserDataDAO(jdbcTemplate).getAggChart(userId, new AggregationRequestDTO(aggregationDTO, graphElement));
     }
 
 }

@@ -1,3 +1,4 @@
+<div hidden="true">
 <h4>Tree Orientation</h4>
 <table>
     <tr>
@@ -53,3 +54,69 @@
         </td>
     </tr>
 </table>
+</div>
+
+<div id ="rightUpdations">
+    <table>
+        <tr>
+            <td>
+                <div id ="updateValues" hidden="true" style="display:block;">
+                    <table>
+                        <tr>
+                            <td colspan="1">
+                                <label for="r-left">Name:  </label>
+                            </td>
+                            <td colspan="1">
+                                <input type="input" id="updateValueName" disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="r-left">Time :</label>
+                            </td>
+                            <td>
+                                <input type="input" id="updateX" disabled>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="r-left">Amount: </label>
+                            </td>
+                            <td>
+                                <input type="input" id="updateY" disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button name ="UpdateValue" onClick="updateValue();">Update</button>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <table>
+                <tr>
+                    <td>
+                        FROM:
+                    </td>
+                    <td colspan="2">
+                        <input type="date" id="fromTime">
+                    </td>
+                </tr>
+            <tr><td>
+                TO:
+            </td>
+            <td colspan="2">
+                <input type="date" id="toTime">
+            </td>
+            </tr>
+            </table>
+        </tr>
+    </table>
+ </div>
+
