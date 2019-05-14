@@ -17,8 +17,8 @@ import java.util.List;
 public class MessageScanner {
 
     // Find your Account Sid and Token at twilio.com/user/account
-    public static final String ACCOUNT_SID = "AC94409c6137216536266a6bd0e803e1a4";
-    public static final String AUTH_TOKEN = "cea928969cb5c4b0860efd15c2d75746";
+    public static final String ACCOUNT_SID = "";
+    public static final String AUTH_TOKEN = "";
 
     public String getMessages() {
         String response= "";
